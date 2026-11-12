@@ -65,6 +65,24 @@ For unit step rise $R$ and tread run $T$, stair rake angle $\theta = \arctan(R /
 
 ---
 
+## 3. IRC R404.4 & NCMA Retaining Wall, Gravel Compaction & CMU Core-Fill Math
+
+Earth-retaining walls require strict separation between dense-graded footing aggregate and open-graded backfill stone, plus mandatory below-grade base embedment:
+
+- **Minimum Buried Toe Embedment**: $d_{\text{embed}} = \max(6\text{ in},\; 0.10 \cdot H_{\text{exposed}})$, rounded up to whole courses.
+- **Compacted Trench Road Base ($3/4"$ Minus Crusher Run)**: Multiply trench geometry by $1.15$ vibratory plate compaction shrinkage and convert at $1.40\text{ short tons/yd}^3$ ($2,800\text{ lbs/yd}^3$).
+- **Clean Drainage Chimney ($\#57$ Washed Angular Stone)**: Zero-fines stone column ($12"$ min width) around a $4"$ perforated toe drain wrapped in non-woven geotextile, converted at $1.30\text{ short tons/yd}^3$ ($2,600\text{ lbs/yd}^3$).
+- **IRC R404.4 Permit & Geogrid Trigger**: Triggered when total height from bottom of footing pad to top of cap exceeds $48\text{ in}$ ($4.0\text{ ft}$) or supports sloped/driveway surcharges; minimum geogrid embedment $L_g \ge \max(4.0\text{ ft},\; 0.70 H)$.
+- **ASTM C90 $8\times 8\times 16$ CMU Core Grout**: $0.235\text{ ft}^3/\text{block}$ ($100\%$ solid grouted) plus $3.2\times 80\text{-lb}$ Type S face-shell mortar bags per $100$ blocks.
+
+### Interactive 2D Hardscape, Timber & Masonry Takeoff Tools
+- **[Retaining Wall Block Calculator](https://retainingwallblockcalculator.com/)** — Live 2D structural cross-section & course elevation, buried starter course math, cap stones, pallets, and geogrid tiebacks.
+- **[Retaining Wall Gravel Calculator](https://retainingwallblockcalculator.com/retaining-wall-gravel-calculator/)** — Two-zone crusher run vs. washed `#57` drainage stone tonnage and bulk dump vs. 50-lb bag break-even.
+- **[Timber Retaining Wall Calculator](https://retainingwallblockcalculator.com/timber-retaining-wall-calculator/)** — Actual $5.5"$ milled $6\times 6$ & $7\times 9$ railroad tie courses, T-deadman anchor plan, $36"$ `#4` rebar pins, and galvanized spikes.
+- **[CMU Block Fill Calculator](https://retainingwallblockcalculator.com/cmu-block-fill-calculator/)** — $6"\text{–}12"$ concrete block core grout cubic yards, $80\text{-lb}$ bag counts, bond beams, Type S mortar, and rebar sticks.
+
+---
+
 ## Quick Usage
 
 ```bash

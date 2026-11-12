@@ -149,6 +149,64 @@ export function solveFenceConcreteMix({
   };
 }
 
+/**
+ * IRC R404.4 & NCMA Segmental Retaining Wall + Two-Zone Gravel Compaction Solver
+ */
+export function solveRetainingWallTakeoff({
+  wallLengthFt,
+  exposedHeightFt,
+  blockHeightIn = 6,
+  blockLengthIn = 16,
+  blockDepthIn = 12,
+  baseDepthIn = 6,
+  drainageWidthIn = 12,
+  wastePct = 8,
+  hasSlopeOrDrivewaySurcharge = false,
+}) {
+  const exposedTargetIn = exposedHeightFt * 12;
+  const exposedCourses = Math.ceil(exposedTargetIn / blockHeightIn);
+  const minEmbedIn = Math.max(6, exposedTargetIn * 0.1);
+  const buriedCourses = Math.max(1, Math.ceil(minEmbedIn / blockHeightIn));
+  const totalCourses = exposedCourses + buriedCourses;
+
+  const blocksPerCourse = Math.ceil((wallLengthFt * 12) / blockLengthIn);
+  const totalBlocks = Math.ceil(
+    blocksPerCourse * totalCourses * (1 + wastePct / 100)
+  );
+
+  const trenchWidthIn = Math.max(blockDepthIn + 12, Math.round(blockDepthIn * 1.8));
+  const crusherRunCuYd =
+    (wallLengthFt * (trenchWidthIn / 12) * (baseDepthIn / 12) * 1.15) / 27;
+  const crusherRunTons = crusherRunCuYd * 1.4;
+
+  const drainHeightFt = Math.max(0.5, (totalCourses * blockHeightIn - 2) / 12);
+  const cleanStone57CuYd =
+    (wallLengthFt * (drainageWidthIn / 12) * drainHeightFt * 1.08) / 27;
+  const cleanStone57Tons = cleanStone57CuYd * 1.3;
+
+  const totalStructuralHeightIn = totalCourses * blockHeightIn;
+  const totalFootingToTopIn = totalStructuralHeightIn + baseDepthIn;
+  const requiresGeogrid =
+    totalStructuralHeightIn > 42 || hasSlopeOrDrivewaySurcharge;
+
+  return {
+    exposedCourses,
+    buriedCourses,
+    totalCourses,
+    totalBlocks,
+    crusherRunTons: Number(crusherRunTons.toFixed(2)),
+    cleanStone57Tons: Number(cleanStone57Tons.toFixed(2)),
+    ircPermitCheckTriggered:
+      totalFootingToTopIn > 48 || hasSlopeOrDrivewaySurcharge,
+    geogridLayers: requiresGeogrid
+      ? Math.max(1, Math.floor((totalCourses - 1) / 2))
+      : 0,
+    minGeogridEmbedmentFt: requiresGeogrid
+      ? Math.max(4.0, Number(((totalStructuralHeightIn / 12) * 0.7).toFixed(1)))
+      : 0,
+  };
+}
+
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   console.log("=== 1. IES Zonal Cavity Workshop Demo (24x24 ft, 10 ft ceiling, 75 fc) ===");
   console.log(
@@ -175,4 +233,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
 
   console.log("\n=== 3. Equalized Fence Post & Concrete Displacement Demo (84 ft + 4 ft gate) ===");
   console.log(solveFenceConcreteMix({ totalRunFt: 84, gateCount: 1, gateWidthFt: 4 }));
+
+  console.log("\n=== 4. IRC R404.4 & NCMA Retaining Wall Demo (36 ft × 3.5 ft, 6x16 SRW) ===");
+  console.log(solveRetainingWallTakeoff({ wallLengthFt: 36, exposedHeightFt: 3.5 }));
 }

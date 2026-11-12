@@ -292,8 +292,70 @@ Spindle_Sloped_Footprint = Baluster_Width / cos(theta)</code></pre>
     </section>
 
     <section>
-      <h2>3. Run the Open-Source Reference CLI</h2>
-      <p>Clone the repository from <a href="https://github.com/kaiyilu/building-layout-math">github.com/kaiyilu/building-layout-math</a> and run <code>node formulas.mjs</code> to verify IES Zonal Cavity, stair spindle cosine projections, and post-hole concrete displacement math locally.</p>
+      <h2>3. IRC R404.4 &amp; NCMA Retaining Wall, Gravel Compaction &amp; CMU Core-Fill Math</h2>
+      <p>Residential earth-retaining structures fail primarily from uncompacted footing trenches, skipped below-grade toe embedment, and hydrostatic clay pressure behind the wall face. Segmental retaining wall (SRW), 6&times;6 timber deadman, and ASTM C90 CMU takeoffs separate buried vs. exposed courses and dense road-base fines vs. clean angular stone:</p>
+      <pre><code>Buried_Embedment_In = max(6, 0.10 * Exposed_Height_In)
+Total_Courses = ceil(Exposed_Height_In / Block_H) + ceil(Buried_Embedment_In / Block_H)
+Crusher_Run_Base_Tons = ((Length_Ft * (Trench_W_In / 12) * (Pad_D_In / 12) * 1.15) / 27) * 1.40
+Clean_57_Drain_Tons   = ((Length_Ft * (Drain_W_In / 12) * Drain_H_Ft * 1.08) / 27) * 1.30
+Geogrid_Embedment_Ft  = max(4.0, 0.70 * Total_Wall_Height_Ft) // Triggered &gt; 48" footing-to-top or surcharge</code></pre>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Hardscape / Masonry Element</th>
+            <th>Standard / Code</th>
+            <th>Field Specification</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Gravity Wall Permit Threshold</td>
+            <td>IRC R404.4</td>
+            <td>&le; 48" measured from bottom of leveling pad to top of cap (zero slope/driveway surcharge)</td>
+          </tr>
+          <tr>
+            <td>Leveling Trench vs. Drainage Zone</td>
+            <td>NCMA SRW</td>
+            <td>6" compacted 3/4" minus crusher run in trench (+15% compaction); 12" washed #57 clean stone behind wall</td>
+          </tr>
+          <tr>
+            <td>6&times;6 Timber Deadman Tiebacks</td>
+            <td>AWPA UC4B</td>
+            <td>T-anchors every 6–8 ft OC; arm &ge; 1.0&times; wall height + 2.5 ft crosshead; 36" #4 rebar base pins</td>
+          </tr>
+          <tr>
+            <td>8&times;8&times;16 CMU Core Grout</td>
+            <td>ASTM C90 / C476</td>
+            <td>0.235 ft&sup3;/block solid grouted (~0.87 yd&sup3; raw per 100 blocks) + 3.2 bags Type S mortar / 100 blocks</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Interactive 2D Hardscape, Timber &amp; Masonry Takeoff Calculators</h3>
+      <div class="tool-grid">
+        <a class="tool-card" href="https://retainingwallblockcalculator.com/">
+          <strong>Retaining Wall Block Calculator &rarr;</strong>
+          <span>2D cross-section &amp; course elevation blueprint, buried base math, caps, pallets &amp; geogrid check.</span>
+        </a>
+        <a class="tool-card" href="https://retainingwallblockcalculator.com/retaining-wall-gravel-calculator/">
+          <strong>Retaining Wall Gravel Calculator &rarr;</strong>
+          <span>Separate crusher run trench tons from washed #57 drainage stone + dump vs. 50-lb bag break-even.</span>
+        </a>
+        <a class="tool-card" href="https://retainingwallblockcalculator.com/timber-retaining-wall-calculator/">
+          <strong>Timber Retaining Wall Calculator &rarr;</strong>
+          <span>True 5.5" milled 6&times;6 &amp; 7&times;9 railroad tie courses, T-deadman anchor plan, rebar pins &amp; spikes.</span>
+        </a>
+        <a class="tool-card" href="https://retainingwallblockcalculator.com/cmu-block-fill-calculator/">
+          <strong>CMU Block Fill Calculator &rarr;</strong>
+          <span>6"–12" concrete block core grout yd&sup3;, 80-lb bags, bond beams, Type S mortar &amp; rebar sticks.</span>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <h2>4. Run the Open-Source Reference CLI</h2>
+      <p>Clone the repository from <a href="https://github.com/kaiyilu/building-layout-math">github.com/kaiyilu/building-layout-math</a> and run <code>node formulas.mjs</code> to verify IES Zonal Cavity, stair spindle cosine projections, fence concrete displacement, and NCMA retaining wall takeoff math locally.</p>
     </section>
   </main>
 
