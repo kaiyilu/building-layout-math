@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Building Layout Math — IES Photometric &amp; 2024 IRC Framing Formulas</title>
+  <meta name="description" content="Open-source field engineering equations for IES Zonal Cavity ceiling lighting grids, 2024 IRC R312.1.3 baluster &amp; stair spindle rake layout, IRC R507.5 deck piers, and equalized fence post bays." />
+  <link rel="canonical" href="https://kaiyilu.github.io/building-layout-math/" />
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --line: #e2e8f0;
+      --accent: #b45309;
+      --accent-bg: #fffbeb;
+      --code-bg: #0f172a;
+      --code-ink: #f8fafc;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+    header {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 2.75rem 1.25rem;
+      border-bottom: 4px solid #f59e0b;
+    }
+    .wrap {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+    .eyebrow {
+      color: #fbbf24;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.4rem;
+    }
+    h1 {
+      margin: 0 0 0.6rem;
+      font-size: clamp(1.65rem, 3.5vw, 2.35rem);
+      line-height: 1.2;
+    }
+    header p {
+      margin: 0;
+      color: #cbd5e1;
+      max-width: 680px;
+      font-size: 0.98rem;
+    }
+    main {
+      padding: 2rem 1.25rem 3.5rem;
+    }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.5rem 1.65rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+    h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0.55rem;
+    }
+    h3 {
+      font-size: 1.02rem;
+      margin: 1.2rem 0 0.4rem;
+    }
+    pre {
+      background: var(--code-bg);
+      color: var(--code-ink);
+      padding: 0.95rem 1.1rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: #f1f5f9;
+      padding: 0.12rem 0.35rem;
+      border-radius: 4px;
+    }
+    pre code {
+      background: transparent;
+      padding: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin: 0.85rem 0;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--line);
+    }
+    th {
+      background: #f8fafc;
+      font-weight: 700;
+    }
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.85rem;
+      margin-top: 1rem;
+    }
+    .tool-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: var(--accent-bg);
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+    .tool-card:hover {
+      border-color: #d97706;
+      transform: translateY(-1px);
+    }
+    .tool-card strong {
+      display: block;
+      color: #92400e;
+      font-size: 0.94rem;
+      margin-bottom: 0.2rem;
+    }
+    .tool-card span {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--muted);
+      font-size: 0.84rem;
+      border-top: 1px solid var(--line);
+    }
+    a { color: #b45309; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="eyebrow">Open-Source Residential &amp; Commercial Field Equations</div>
+      <h1>Building Layout Math: IES Photometrics &amp; 2024 IRC Framing</h1>
+      <p>Clean mathematical derivations and zero-drift tape-measure equations for ceiling lighting grids, IRC R312.1.3 deck &amp; stair railings, IRC R507.5 structural drop beams, and equalized fence lines.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <h2>1. IES Zonal Cavity Ceiling Lighting &amp; Obstruction Geometry</h2>
+      <p>Dividing room area by bulb wattage ignores ceiling cavity absorption, wall reflectance, and beam cone overlap. The Illuminating Engineering Society (IES) Zonal Cavity method computes Room Cavity Ratio (<code>RCR</code>) first:</p>
+      <pre><code>RCR = (5 * h_cavity * (Length + Width)) / (Length * Width)
+h_cavity = Ceiling_Height - Workplane_Height
+Fixtures_Required = ceil((Target_FC * Area_SqFt) / (Lumens_Per_Fixture * CU * LLF))</code></pre>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Space / Task Zone</th>
+            <th>Workplane</th>
+            <th>IES Target Illuminance</th>
+            <th>Max S/MH Ratio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bedroom / Living Room + Center Fan</td>
+            <td>2.5 ft</td>
+            <td>15 – 20 fc (160 – 215 lux)</td>
+            <td>1.20× mounting height</td>
+          </tr>
+          <tr>
+            <td>Kitchen Countertop &amp; Prep Island</td>
+            <td>3.0 ft</td>
+            <td>40 – 50 fc (430 – 540 lux)</td>
+            <td>1.15× mounting height</td>
+          </tr>
+          <tr>
+            <td>2-Car Workshop Garage (4ft LED Strips)</td>
+            <td>3.0 ft</td>
+            <td>70 – 85 fc (750 – 915 lux)</td>
+            <td>1.40× mounting height</td>
+          </tr>
+          <tr>
+            <td>Auto Detailing Bay / Paint Correction</td>
+            <td>3.0 ft</td>
+            <td>110 – 150 fc (1,200+ lux)</td>
+            <td>1.25× mounting height</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Interactive 2D Ceiling Blueprint &amp; Heatmap Calculators</h3>
+      <div class="tool-grid">
+        <a class="tool-card" href="https://lightinglayoutcalculator.com/">
+          <strong>Lighting Layout Calculator &rarr;</strong>
+          <span>Live 2D foot-candle heatmap, IES Zonal Cavity grid solver &amp; 1:1 SVG drill schedule.</span>
+        </a>
+        <a class="tool-card" href="https://lightinglayoutcalculator.com/garage-lighting-layout-calculator/">
+          <strong>Garage Lighting Layout Calculator &rarr;</strong>
+          <span>4ft/8ft shop strips, hex detailing pods &amp; open roll-up door track shadow checks.</span>
+        </a>
+        <a class="tool-card" href="https://lightinglayoutcalculator.com/recessed-lighting-layout-calculator/">
+          <strong>Recessed Lighting Layout Calculator &rarr;</strong>
+          <span>4" &amp; 6" canless wafer pitch, 16" OC joist bay alerts &amp; fan blade strobe buffer ring.</span>
+        </a>
+        <a class="tool-card" href="https://lightinglayoutcalculator.com/led-lighting-layout-calculator/">
+          <strong>LED Lighting Layout Calculator &rarr;</strong>
+          <span>Commercial UFO high-bay &amp; 2&times;4 troffer photometrics, uniformity &amp; W/sq ft load.</span>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. 2024 IRC R312.1.3 Guardrail, Stair Rake &amp; R507.5 Framing Formulas</h2>
+      <p>To eliminate cumulative spacer-block drift and pass municipal framing inspection under the <strong>4-inch sphere rule</strong> (level rails) and <strong>6-inch stair triangle rule</strong>, pull continuous leading-edge marks from inside post face <code>0"</code>:</p>
+      <pre><code>Baluster_Count (N) = ceil((Clear_Span - Max_Gap) / (Baluster_Width + Max_Gap))
+Exact_Horiz_Gap (g) = (Clear_Span - N * Baluster_Width) / (N + 1)
+Horiz_Leading_Edge[i] = g + (i - 1) * (g + Baluster_Width)
+
+// Angled Stair Rake (Unit Rise R, Unit Tread Run T, Pitch theta = atan(R / T)):
+Sloped_Shoe_Rail_Mark[i] = Horiz_Leading_Edge[i] / cos(theta)
+Spindle_Sloped_Footprint = Baluster_Width / cos(theta)</code></pre>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Framing Element</th>
+            <th>Code Reference</th>
+            <th>Field Rule / Formula</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Deck &amp; Porch Guardrail Pickets</td>
+            <td>IRC R312.1.3</td>
+            <td>Clear opening &lt; 4.00" (set target 3-5/8" to 3-3/4" for PT wood drying shrinkage)</td>
+          </tr>
+          <tr>
+            <td>Stair Tread–Riser–Rail Throat</td>
+            <td>IRC R312.1.3 Exc. 2</td>
+            <td>Triangular throat must block a 6.00" sphere; open stair risers &lt; 4.00"</td>
+          </tr>
+          <tr>
+            <td>Drop Beam End Cantilever</td>
+            <td>IRC R507.5</td>
+            <td>Max overhang &le; L / 4 of allowable post-to-post beam span</td>
+          </tr>
+          <tr>
+            <td>Privacy Fence Post Embedment</td>
+            <td>Wind-Load Practice</td>
+            <td>Hole depth &ge; 1/3 above-grade fence height + 4" tamped gravel base; 6 ft OC in high wind</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Interactive 2D Carpentry &amp; Structural Layout Calculators</h3>
+      <div class="tool-grid">
+        <a class="tool-card" href="https://balusterspacingcalculator.com/">
+          <strong>Baluster Spacing Calculator &rarr;</strong>
+          <span>2D deck railing blueprint, IRC 4" sphere check &amp; 1/16" running hook-tape schedule.</span>
+        </a>
+        <a class="tool-card" href="https://balusterspacingcalculator.com/spindle-spacing-calculator/">
+          <strong>Spindle Spacing Calculator &rarr;</strong>
+          <span>Angled stair rake shoe-rail marks, miter saw plumb angles &amp; 6" throat verification.</span>
+        </a>
+        <a class="tool-card" href="https://balusterspacingcalculator.com/deck-post-spacing-calculator/">
+          <strong>Deck Post Spacing Calculator &rarr;</strong>
+          <span>2024 IRC Table R507.5 beam spans, L/4 cantilevers, SonoTube piers &amp; 80-lb concrete bags.</span>
+        </a>
+        <a class="tool-card" href="https://balusterspacingcalculator.com/fence-post-spacing-calculator/">
+          <strong>Fence Post Spacing Calculator &rarr;</strong>
+          <span>Equalized fence bays (zero orphan stubs), inline gate deductions &amp; 50-lb fast-set mix.</span>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <h2>3. Run the Open-Source Reference CLI</h2>
+      <p>Clone the repository from <a href="https://github.com/kaiyilu/building-layout-math">github.com/kaiyilu/building-layout-math</a> and run <code>node formulas.mjs</code> to verify IES Zonal Cavity, stair spindle cosine projections, and post-hole concrete displacement math locally.</p>
+    </section>
+  </main>
+
+  <footer>
+    MIT Licensed Engineering Reference &bull; Source on <a href="https://github.com/kaiyilu/building-layout-math">GitHub</a>
+  </footer>
+</body>
+</html>

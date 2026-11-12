@@ -1,0 +1,21 @@
+{
+  "name": "building-layout-math",
+  "version": "1.0.0",
+  "description": "Zero-dependency IES zonal cavity lighting layout & 2024 IRC R312/R507 guardrail, stair rake, deck pier, and fence post spacing formulas.",
+  "type": "module",
+  "main": "formulas.mjs",
+  "scripts": {
+    "demo": "node formulas.mjs"
+  },
+  "keywords": [
+    "ies-lighting",
+    "zonal-cavity",
+    "foot-candle",
+    "irc-r312",
+    "baluster-spacing",
+    "deck-post-spacing",
+    "fence-post-spacing",
+    "carpentry-math"
+  ],
+  "license": "MIT"
+}
