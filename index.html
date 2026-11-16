@@ -167,7 +167,8 @@
       <p>Dividing room area by bulb wattage ignores ceiling cavity absorption, wall reflectance, and beam cone overlap. The Illuminating Engineering Society (IES) Zonal Cavity method computes Room Cavity Ratio (<code>RCR</code>) first:</p>
       <pre><code>RCR = (5 * h_cavity * (Length + Width)) / (Length * Width)
 h_cavity = Ceiling_Height - Workplane_Height
-Fixtures_Required = ceil((Target_FC * Area_SqFt) / (Lumens_Per_Fixture * CU * LLF))</code></pre>
+Fixtures_Required = ceil((Target_FC * Area_SqFt) / (Lumens_Per_Fixture * CU * LLF))
+High_Bay_Beam_Diameter = 2 * h_cavity * tan(Beam_Angle_Deg / 2)</code></pre>
 
       <table>
         <thead>
@@ -203,6 +204,12 @@ Fixtures_Required = ceil((Target_FC * Area_SqFt) / (Lumens_Per_Fixture * CU * LL
             <td>110 – 150 fc (1,200+ lux)</td>
             <td>1.25× mounting height</td>
           </tr>
+          <tr>
+            <td>Warehouse / Pole Barn High-Bay (16–35 ft)</td>
+            <td>2.5 ft</td>
+            <td>30 – 50 fc (320 – 540 lux)</td>
+            <td>0.95 – 1.15× (90°/110° UFO crossover)</td>
+          </tr>
         </tbody>
       </table>
 
@@ -223,6 +230,10 @@ Fixtures_Required = ceil((Target_FC * Area_SqFt) / (Lumens_Per_Fixture * CU * LL
         <a class="tool-card" href="https://lightinglayoutcalculator.com/led-lighting-layout-calculator/">
           <strong>LED Lighting Layout Calculator &rarr;</strong>
           <span>Commercial UFO high-bay &amp; 2&times;4 troffer photometrics, uniformity &amp; W/sq ft load.</span>
+        </a>
+        <a class="tool-card" href="https://lightinglayoutcalculator.com/high-bay-lighting-calculator/">
+          <strong>High-Bay Lighting Calculator &rarr;</strong>
+          <span>16–40 ft warehouse &amp; pole barn UFO beam crossover, aisle optics &amp; S/MH uniformity check.</span>
         </a>
       </div>
     </section>

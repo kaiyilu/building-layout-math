@@ -24,12 +24,14 @@ $$N = \left\lceil \frac{E_{\text{target}} \cdot (L \cdot W)}{\Phi_{\text{lumens}
 - **Spacing-to-Mounting-Height ($\text{S/MH}$) Check**: Keep center-to-center pitch $S \le 1.2 \times h_{\text{rc}}$ for $90^\circ\text{–}110^\circ$ recessed wafers, or $S \le 1.4 \times h_{\text{rc}}$ for wide linear shop strips. Wall offset defaults to $S / 2$ to prevent dark drywall corners.
 - **Ceiling Fan Strobe Clearance**: When a center paddle fan of diameter $D_{\text{fan}}$ is installed, maintain radial center-to-center clearance $r \ge \frac{D_{\text{fan}}}{2} + 24\text{ in}$ (ideally $30\text{ in}$) outside spinning blade tips to eliminate helicopter-style shadow strobing.
 - **Overhead Garage Door Track Occlusion**: Roll-up sectional doors rest $8\text{–}10\text{ ft}$ into the bay when open; shift center-bay linear LED strips forward into the clear hood/workbench zone rather than centering over the open door panel.
+- **High-Bay Beam Crossover ($16\text{–}40\text{ ft}$ Ceilings)**: Workplane cone diameter is $D_{\text{beam}} = 2 \cdot h_{\text{rc}} \cdot \tan(\theta_{\text{beam}} / 2)$. Above $24\text{ ft}$ mounting height, step down from $110^\circ\text{–}120^\circ$ wide UFO optics to $90^\circ$ medium or $60^\circ$ aisle-rack optics ($S \le 1.0 \times h_{\text{rc}}$) to maintain mid-bay beam crossover without upper-rack glare.
 
 ### Interactive 2D Photometric Blueprint Tools
 - **[Lighting Layout Calculator](https://lightinglayoutcalculator.com/)** — Live 2D foot-candle heatmap, IES Zonal Cavity solver, and 1:1 SVG ceiling drill schedule.
 - **[Garage Lighting Layout Calculator](https://lightinglayoutcalculator.com/garage-lighting-layout-calculator/)** — 4ft/8ft LED strip & hex pod planner with open roll-up door track occlusion checks.
 - **[Recessed Lighting Layout Calculator](https://lightinglayoutcalculator.com/recessed-lighting-layout-calculator/)** — 4" & 6" canless wafer spacing, 16" OC joist bay alerts, and ceiling fan strobe buffer push.
 - **[Commercial LED Lighting Layout Calculator](https://lightinglayoutcalculator.com/led-lighting-layout-calculator/)** — High-bay UFO & 2×4 troffer grid planner with uniformity ratio ($\text{Min/Avg}$) and $\text{W/ft}^2$ power density.
+- **[High-Bay Lighting Calculator](https://lightinglayoutcalculator.com/high-bay-lighting-calculator/)** — 16–40 ft warehouse, pole barn & gym UFO high-bay beam crossover, aisle S/MH ratio, and circuit load planner.
 
 ---
 
