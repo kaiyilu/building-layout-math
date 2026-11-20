@@ -63,6 +63,7 @@ For unit step rise $R$ and tread run $T$, stair rake angle $\theta = \arctan(R /
 - **[Baluster Spacing Calculator](https://balusterspacingcalculator.com/)** — Live 2D guardrail elevation, IRC 4" sphere inspection overlay, and $1/16"$ running carpenter hook-tape table.
 - **[Spindle Spacing Calculator](https://balusterspacingcalculator.com/spindle-spacing-calculator/)** — Angled stair rake handrail & shoe-rail diagonal tape marks, miter saw plumb angles, and IRC 6" triangle checks.
 - **[Deck Post Spacing Calculator](https://balusterspacingcalculator.com/deck-post-spacing-calculator/)** — 2024 IRC Table R507.5 wet-service beam spans, $L/4$ cantilever verification, and SonoTube pier footing schedules.
+- **[Deck Footing Calculator](https://balusterspacingcalculator.com/deck-footing-calculator/)** — 2024 IRC Table R507.3.1 SonoTube, square pad & flared bell-bottom footing sizes, frost-line cross-sections, and 80-lb bag counts.
 - **[Fence Post Spacing Calculator](https://balusterspacingcalculator.com/fence-post-spacing-calculator/)** — Equalized bay solver (zero corner stub panels), inline walk/drive gate deductions, and concrete bag tallies.
 
 ---
