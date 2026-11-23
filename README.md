@@ -32,6 +32,7 @@ $$N = \left\lceil \frac{E_{\text{target}} \cdot (L \cdot W)}{\Phi_{\text{lumens}
 - **[Recessed Lighting Layout Calculator](https://lightinglayoutcalculator.com/recessed-lighting-layout-calculator/)** — 4" & 6" canless wafer spacing, 16" OC joist bay alerts, and ceiling fan strobe buffer push.
 - **[Commercial LED Lighting Layout Calculator](https://lightinglayoutcalculator.com/led-lighting-layout-calculator/)** — High-bay UFO & 2×4 troffer grid planner with uniformity ratio ($\text{Min/Avg}$) and $\text{W/ft}^2$ power density.
 - **[High-Bay Lighting Calculator](https://lightinglayoutcalculator.com/high-bay-lighting-calculator/)** — 16–40 ft warehouse, pole barn & gym UFO high-bay beam crossover, aisle S/MH ratio, and circuit load planner.
+- **[Shop Light Calculator](https://lightinglayoutcalculator.com/shop-light-calculator/)** — 4ft & 8ft linkable LED shop light spacing, workbench foot-candles, and daisy-chain cord outlet drops.
 
 ---
 
@@ -83,6 +84,7 @@ Earth-retaining walls require strict separation between dense-graded footing agg
 - **[Retaining Wall Block Calculator](https://retainingwallblockcalculator.com/)** — Live 2D structural cross-section & course elevation, buried starter course math, cap stones, pallets, and geogrid tiebacks.
 - **[Retaining Wall Gravel Calculator](https://retainingwallblockcalculator.com/retaining-wall-gravel-calculator/)** — Two-zone crusher run vs. washed `#57` drainage stone tonnage and bulk dump vs. 50-lb bag break-even.
 - **[Timber Retaining Wall Calculator](https://retainingwallblockcalculator.com/timber-retaining-wall-calculator/)** — Actual $5.5"$ milled $6\times 6$ & $7\times 9$ railroad tie courses, T-deadman anchor plan, $36"$ `#4` rebar pins, and galvanized spikes.
+- **[Cinder Block Wall Calculator](https://retainingwallblockcalculator.com/cinder-block-wall-calculator/)** — $8\times 8\times 16$ CMU stretcher & corner half-block counts, window/door lintel deductions, $80\text{-lb}$ Type S mortar bags, and horizontal ladder wire.
 - **[CMU Block Fill Calculator](https://retainingwallblockcalculator.com/cmu-block-fill-calculator/)** — $6"\text{–}12"$ concrete block core grout cubic yards, $80\text{-lb}$ bag counts, bond beams, Type S mortar, and rebar sticks.
 
 ---
