@@ -3,7 +3,9 @@
 Zero-dependency engineering reference formulas and JavaScript/Node.js solvers for residential and light-commercial **IES ceiling lighting layouts** and **2024 IRC deck, stair railing, and fence framing schedules**.
 
 - **GitHub Pages Field Guide**: [https://kaiyilu.github.io/building-layout-math/](https://kaiyilu.github.io/building-layout-math/)
-- **Run CLI Demo**: `node formulas.mjs` (Node.js 18+, zero external packages)
+- **Source Modules**: [`./formulas.mjs`](./formulas.mjs) & [`./rcpFootprint.mjs`](./rcpFootprint.mjs) (Zero external packages, Node.js 18+ & Browser ES Modules)
+- **Run Unit Tests**: `npm test` / `node --test` (`4` passing `node:test` suites)
+- **Run CLI Demo**: `node formulas.mjs`
 
 ---
 
@@ -22,17 +24,18 @@ Where:
 $$N = \left\lceil \frac{E_{\text{target}} \cdot (L \cdot W)}{\Phi_{\text{lumens}} \cdot \text{CU} \cdot \text{LLF}} \right\rceil$$
 
 - **Spacing-to-Mounting-Height ($\text{S/MH}$) Check**: Keep center-to-center pitch $S \le 1.2 \times h_{\text{rc}}$ for $90^\circ\text{–}110^\circ$ recessed wafers, or $S \le 1.4 \times h_{\text{rc}}$ for wide linear shop strips. Wall offset defaults to $S / 2$ to prevent dark drywall corners.
-- **Ceiling Fan Strobe Clearance**: When a center paddle fan of diameter $D_{\text{fan}}$ is installed, maintain radial center-to-center clearance $r \ge \frac{D_{\text{fan}}}{2} + 24\text{ in}$ (ideally $30\text{ in}$) outside spinning blade tips to eliminate helicopter-style shadow strobing.
-- **Overhead Garage Door Track Occlusion**: Roll-up sectional doors rest $8\text{–}10\text{ ft}$ into the bay when open; shift center-bay linear LED strips forward into the clear hood/workbench zone rather than centering over the open door panel.
+- **Ceiling Fan Strobe Clearance (`solveRcpObstacleLayout`)**: When a center paddle fan of diameter $D_{\text{fan}}$ is installed, preserves `baseGrid` pre-shift coordinates while `fanShifted` radially pushes encroaching fixtures outside $R_{\text{blade}} + 30\text{ in}$ (`2.5 ft` tip buffer) and clamps against perimeter wall margins ($\ge 1.25\text{ ft}$ / $0.38\text{ m}$).
+- **2D Rotated Physical Fixture Envelope & Overhead Garage-Door Track Bay Solver (`solveRcpObstacleLayout`)**: Evaluates physical `L × W` vs. `90°` rotated `W × L` housing envelopes (`spanXFt`, `spanYFt`) against open sectional door tracks ($y \in [W - D_{\text{door}},\, W]$). Automatically caps clear ceiling bay rows (`maxClearBayRows`, e.g., `2×6` `PASS` at `10.60 ft <= 11.00 ft` on a `21.5 × 19.5 ft` garage with `90°` 4-ft strips) and emits honest `WARNING` collision flags with exact intrusion margins on manual grid overrides (e.g., `3×4` `WARNING` at `13.05 ft > 11.00 ft`).
+- **True Architectural CAD Scale Viewport (`computeCadScaleViewport`)**: Sizes calibrated Reflected Ceiling Plan sheets at `1/4" = 1'-0"` (`1:48`, `24 u/ft` at `96 u/in`), `1/8" = 1'-0"` (`1:96`), and `ISO 1:50` (`20 mm = 1 m`), `1:100`, `1:200` in physical inches and millimeters.
 - **High-Bay Beam Crossover ($16\text{–}40\text{ ft}$ Ceilings)**: Workplane cone diameter is $D_{\text{beam}} = 2 \cdot h_{\text{rc}} \cdot \tan(\theta_{\text{beam}} / 2)$. Above $24\text{ ft}$ mounting height, step down from $110^\circ\text{–}120^\circ$ wide UFO optics to $90^\circ$ medium or $60^\circ$ aisle-rack optics ($S \le 1.0 \times h_{\text{rc}}$) to maintain mid-bay beam crossover without upper-rack glare.
 
-### Interactive 2D Photometric Blueprint Tools
-- **[Lighting Layout Calculator](https://lightinglayoutcalculator.com/)** — Live 2D foot-candle heatmap, IES Zonal Cavity solver, and 1:1 SVG ceiling drill schedule.
-- **[Garage Lighting Layout Calculator](https://lightinglayoutcalculator.com/garage-lighting-layout-calculator/)** — 4ft/8ft LED strip & hex pod planner with open roll-up door track occlusion checks.
-- **[Recessed Lighting Layout Calculator](https://lightinglayoutcalculator.com/recessed-lighting-layout-calculator/)** — 4" & 6" canless wafer spacing, 16" OC joist bay alerts, and ceiling fan strobe buffer push.
-- **[Commercial LED Lighting Layout Calculator](https://lightinglayoutcalculator.com/led-lighting-layout-calculator/)** — High-bay UFO & 2×4 troffer grid planner with uniformity ratio ($\text{Min/Avg}$) and $\text{W/ft}^2$ power density.
-- **[High-Bay Lighting Calculator](https://lightinglayoutcalculator.com/high-bay-lighting-calculator/)** — 16–40 ft warehouse, pole barn & gym UFO high-bay beam crossover, aisle S/MH ratio, and circuit load planner.
-- **[Shop Light Calculator](https://lightinglayoutcalculator.com/shop-light-calculator/)** — 4ft & 8ft linkable LED shop light spacing, workbench foot-candles, and daisy-chain cord outlet drops.
+### Interactive 2D Photometric Blueprint Tools (`lightinglayoutcalculator.com`)
+- **[Lighting Layout Calculator](https://lightinglayoutcalculator.com/)** — Live 2D foot-candle & 128-point task-zone illuminance heatmap, IES Zonal Cavity solver, and calibrated `1/4"=1'-0"` & `ISO 1:50` bilingual CAD SVG/PDF ceiling schedules.
+- **[Shop Light Calculator](https://lightinglayoutcalculator.com/shop-light-calculator/)** — 4ft & 8ft linkable LED shop light spacing, `90°` rotated strip envelope checks, workbench foot-candles, and daisy-chain cord outlet drops.
+- **[Recessed Lighting Layout Calculator](https://lightinglayoutcalculator.com/recessed-lighting-layout-calculator/)** — 4" & 6" canless wafer spacing, 16" OC joist bay alerts, and ceiling fan strobe avoidance (`baseGrid` + `fanShifted` schedules).
+- **[Garage Lighting Layout Calculator](https://lightinglayoutcalculator.com/garage-lighting-layout-calculator/)** — 4ft/8ft LED strip & hex pod planner with 2D AABB open roll-up garage door track collision audits.
+- **[High-Bay Lighting Calculator](https://lightinglayoutcalculator.com/high-bay-lighting-calculator/)** — 16–40 ft warehouse, pole barn & gym UFO high-bay beam crossover, aisle S/MH ratio, and 120V/277V/480V circuit load planner.
+- **[Commercial LED Lighting Layout Calculator](https://lightinglayoutcalculator.com/led-lighting-layout-calculator/)** — 2×4 & 2×2 architectural LED troffer grid planner with uniformity ratio ($\text{Min/Avg}$) and $\text{W/ft}^2$ power density.
 
 ---
 
@@ -94,6 +97,7 @@ Earth-retaining walls require strict separation between dense-graded footing agg
 ```bash
 git clone https://github.com/kaiyilu/building-layout-math.git
 cd building-layout-math
+npm test
 node formulas.mjs
 ```
 

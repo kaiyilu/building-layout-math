@@ -8,6 +8,12 @@
 
 import { pathToFileURL } from "node:url";
 
+export {
+  solveOptimalLightingGrid,
+  solveRcpObstacleLayout,
+  computeCadScaleViewport,
+} from "./rcpFootprint.mjs";
+
 export function formatSixteenths(inches) {
   const total16 = Math.round(Math.max(0, inches) * 16);
   const whole = Math.floor(total16 / 16);
